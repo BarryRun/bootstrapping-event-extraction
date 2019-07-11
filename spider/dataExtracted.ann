@@ -1,0 +1,324 @@
+T1	Score 61 64	116
+T2	Score 65 68	109
+T3	Team 70 73	火箭队
+T4	Team 54 57	魔术队
+T5	Game 68 70	战胜
+E1	Game:T5 Winner:T4 Loser:T3 WinnerScore:T1 LoserScore:T2
+T7	Team 133 135	魔术
+T6	Team 187 189	火箭
+T8	Game 185 187	战胜
+E2	Game:T8 WinnerScore:T9 LoserScore:T10 Loser:T6 Winner:T7
+T9	Score 178 181	116
+T10	Score 182 185	109
+T11	Game 203 205	战胜
+E3	Game:T11 WinnerScore:T14 LoserScore:T15 Loser:T13 Winner:T12
+T12	Team 194 196	国王
+T13	Team 205 207	魔术
+T14	Score 197 200	111
+T15	Score 201 203	95
+T21	Game 288 290	战胜
+E5	Game:T21 WinnerScore:T24 LoserScore:T25 Winner:T23 Loser:T22
+T22	Team 290 292	灰熊
+T23	Team 279 281	鹈鹕
+T24	Score 282 285	114
+T25	Score 286 288	95
+T16	Team 350 353	火箭队
+T17	Team 369 372	掘金队
+T18	Score 354 357	125
+T19	Score 358 361	113
+T20	Game 361 363	战胜
+E4	Game:T20 Winner:T16 Loser:T17 WinnerScore:T18 LoserScore:T19
+T26	Game 402 404	战胜
+E6	Game:T26 Loser:T28 Winner:T27 WinnerScore:T29 LoserScore:T30
+T27	Team 391 395	凯尔特人
+T28	Team 404 406	篮网
+T29	Score 396 399	116
+T30	Score 400 402	95
+T31	Team 422 424	绿军
+T32	Team 434 436	篮网
+T33	Score 424 427	116
+T34	Score 428 430	95
+T35	Game 432 434	战胜
+E7	Game:T35 Winner:T31 Loser:T32 WinnerScore:T33 LoserScore:T34
+T36	Team 536 538	马刺
+T37	Team 548 550	活塞
+T38	Game 546 548	战胜
+E8	Game:T38 Winner:T36 Loser:T37 WinnerScore:T39 LoserScore:T40
+T39	Score 539 542	119
+T40	Score 543 546	107
+T41	Team 1208 1211	马刺队
+T42	Team 1228 1230	灰熊
+T43	Game 1226 1228	战胜
+E9	Game:T43 Winner:T41 Loser:T42 WinnerScore:T44 LoserScore:T45
+T44	Score 1220 1223	108
+T45	Score 1224 1226	88
+T46	Team 1029 1031	快船
+T47	Team 1040 1042	魔术
+T48	Score 1032 1035	106
+T49	Score 1036 1038	96
+T50	Game 1038 1040	战胜
+E10	Game:T50 Winner:T46 Loser:T47 WinnerScore:T48 LoserScore:T49
+T51	Team 947 949	老鹰
+T52	Team 958 960	热火
+T53	Game 956 958	战胜
+E11	Game:T53 Winner:T51 Loser:T52 WinnerScore:T54 LoserScore:T55
+T54	Score 950 953	106
+T55	Score 954 956	82
+T56	Team 965 967	快船
+T57	Team 976 978	魔术
+T58	Game 974 976	战胜
+E12	Game:T58 Winner:T56 Loser:T57 WinnerScore:T59 LoserScore:T60
+T59	Score 968 971	106
+T60	Score 972 974	96
+T61	Team 1251 1254	76人
+T62	Team 1265 1267	小牛
+T63	Game 1263 1265	战胜
+E13	Game:T63 Winner:T61 Loser:T62 WinnerScore:T64 LoserScore:T65
+T64	Score 1254 1257	106
+T65	Score 1258 1261	100
+T66	Team 1273 1275	掘金
+T67	Team 1286 1288	黄蜂
+T68	Game 1284 1286	战胜
+E14	Game:T68 Winner:T66 WinnerScore:T69 LoserScore:T70 Loser:T67
+T69	Score 1275 1278	123
+T70	Score 1279 1282	110
+T71	Team 1593 1595	猛龙
+T72	Team 1604 1606	奇才
+T73	Game 1602 1604	战胜
+E15	Game:T73 Winner:T71 Loser:T72 WinnerScore:T74 LoserScore:T75
+T74	Score 1595 1598	140
+T75	Score 1599 1602	138
+T76	Team 1698 1700	快船
+T77	Team 1711 1713	太阳
+T78	Game 1709 1711	战胜
+E16	Game:T78 Winner:T76 WinnerScore:T79 LoserScore:T80 Loser:T77
+T79	Score 1700 1703	121
+T80	Score 1704 1707	111
+T81	Team 1726 1728	爵士
+T82	Team 1737 1739	骑士
+T83	Score 1729 1732	117
+T84	Score 1733 1735	91
+T85	Game 1735 1737	战胜
+E17	Game:T85 Winner:T81 Loser:T82 WinnerScore:T83 LoserScore:T84
+T86	Team 1870 1873	雷霆队
+T87	Team 1899 1902	湖人队
+T88	Game 1896 1898	战胜
+E18	Game:T88 Winner:T86 Loser:T87 WinnerScore:T89 LoserScore:T90
+T89	Score 1887 1890	107
+T90	Score 1891 1894	100
+T91	Team 2051 2053	猛龙
+T92	Score 2083 2086	122
+T93	Score 2087 2090	116
+T94	Team 2092 2094	爵士
+T95	Game 2090 2092	战胜
+E19	Game:T95 Winner:T91 Loser:T94 WinnerScore:T92 LoserScore:T93
+T96	Team 2269 2271	活塞
+T97	Team 2279 2281	灰熊
+T98	Game 2277 2279	战胜
+E20	Game:T98 Winner:T96 Loser:T97 WinnerScore:T99 LoserScore:T100
+T99	Score 2271 2274	101
+T100	Score 2275 2277	94
+T101	Team 2286 2289	独行侠
+T102	Team 2298 2300	黄蜂
+T103	Game 2296 2298	战胜
+E21	Game:T103 LoserScore:T105 WinnerScore:T104 Loser:T102 Winner:T101
+T104	Score 2290 2293	122
+T105	Score 2294 2296	84
+T106	Game 2317 2319	战胜
+E22	Game:T106 Winner:T107 Loser:T108 WinnerScore:T109 LoserScore:T110
+T107	Team 2308 2310	热火
+T108	Team 2319 2321	骑士
+T109	Score 2311 2314	117
+T110	Score 2315 2317	92
+T111	Team 2406 2408	火箭
+T112	Team 2417 2419	灰熊
+T113	Game 2415 2417	战胜
+E23	Game:T113 Winner:T111 Loser:T112 WinnerScore:T114 LoserScore:T115
+T114	Score 2408 2411	113
+T115	Score 2412 2415	101
+T116	Team 2497 2500	开拓者
+T117	Team 2512 2514	国王
+T118	Game 2510 2512	战胜
+E24	Game:T118 Winner:T116 WinnerScore:T119 LoserScore:T120 Loser:T117
+T119	Score 2503 2506	113
+T120	Score 2507 2510	108
+T121	Team 2525 2527	掘金
+T122	Team 2537 2540	尼克斯
+T123	Game 2535 2537	战胜
+E25	Game:T123 Winner:T121 WinnerScore:T124 LoserScore:T125 Loser:T122
+T124	Score 2528 2531	115
+T125	Score 2532 2535	108
+T126	Team 2558 2560	猛龙
+T127	Team 2571 2574	爵士队
+T128	Game 2569 2571	战胜
+E26	Game:T128 Winner:T126 WinnerScore:T129 LoserScore:T130 Loser:T127
+T129	Score 2562 2565	122
+T130	Score 2566 2569	116
+T131	Game 2616 2618	战胜
+E27	Game:T131 Winner:T133 WinnerScore:T134 LoserScore:T135 Loser:T132
+T133	Team 2606 2608	鹈鹕
+T132	Team 2618 2621	森林狼
+T134	Score 2609 2612	123
+T135	Score 2613 2616	114
+T136	Game 2691 2693	战胜
+E28	Game:T136 Winner:T138 Loser:T137 WinnerScore:T139 LoserScore:T140
+T137	Team 2693 2697	凯尔特人
+T138	Team 2680 2682	马刺
+T139	Score 2682 2685	120
+T140	Score 2686 2689	111
+T141	Team 3150 3152	雷霆
+T142	Team 3164 3167	独行侠
+T143	Game 3178 3180	战胜
+E29	Game:T143 Loser:T141 Winner:T142 WinnerScore:T144 LoserScore:T145
+T144	Score 3171 3174	105
+T145	Score 3175 3178	103
+T146	Team 2805 2807	黄蜂
+T147	Team 2817 2819	魔术
+T148	Game 2815 2817	战胜
+E30	Game:T148 Winner:T146 WinnerScore:T149 LoserScore:T150 Loser:T147
+T149	Score 2808 2811	125
+T150	Score 2812 2815	100
+T151	Team 3252 3255	独行侠
+T152	Team 3281 3283	雷霆
+T153	Game 3279 3281	战胜
+E31	Game:T153 Winner:T151 Loser:T152 WinnerScore:T154 LoserScore:T155
+T154	Score 3269 3272	105
+T155	Score 3273 3276	103
+T156	Team 3462 3464	雷霆
+T157	Team 3481 3483	马刺
+T158	Game 3479 3481	战胜
+E32	Game:T158 Winner:T156 Loser:T157 WinnerScore:T159 LoserScore:T160
+T159	Score 3472 3475	122
+T160	Score 3476 3479	112
+T161	Team 3593 3595	猛龙
+T162	Team 3606 3608	公牛
+T163	Score 3598 3600	95
+T164	Score 3601 3603	89
+T165	Game 3603 3605	战胜
+E33	Game:T165 Winner:T161 Loser:T162 WinnerScore:T163 LoserScore:T164
+T166	Team 4023 4026	魔术队
+T167	Team 4042 4045	活塞队
+T168	Game 4040 4042	战胜
+E34	Game:T168 Winner:T166 WinnerScore:T169 LoserScore:T170 Loser:T167
+T169	Score 4033 4036	109
+T170	Score 4037 4040	107
+T171	Team 3701 3704	森林狼
+T172	Team 3714 3716	热火
+T173	Game 3712 3714	战胜
+E35	Game:T173 Winner:T171 WinnerScore:T174 LoserScore:T175 Loser:T172
+T174	Score 3705 3708	113
+T175	Score 3709 3712	104
+T176	Team 4080 4083	热火队
+T177	Team 4099 4102	灰熊队
+T178	Game 4097 4099	战胜
+E36	Game:T178 Winner:T176 WinnerScore:T179 LoserScore:T180 Loser:T177
+T179	Score 4090 4093	112
+T180	Score 4094 4097	108
+T181	Team 4241 4245	凯尔特人
+T182	Team 4256 4258	灰熊
+T183	Game 4254 4256	战胜
+E37	Game:T183 Winner:T181 WinnerScore:T184 LoserScore:T185 Loser:T182
+T184	Score 4245 4248	112
+T185	Score 4249 4252	103
+T186	Team 4689 4691	老鹰
+T187	Team 4702 4704	骑士
+T188	Game 4700 4702	战胜
+E38	Game:T188 Winner:T186 WinnerScore:T189 LoserScore:T190 Loser:T187
+T189	Score 4691 4694	111
+T190	Score 4695 4698	108
+T191	Team 4739 4742	雄鹿队
+T192	Team 4758 4761	篮网队
+T193	Score 4749 4752	129
+T194	Score 4753 4756	115
+T195	Game 4756 4758	战胜
+E39	Game:T195 Winner:T191 Loser:T192 WinnerScore:T193 LoserScore:T194
+T196	Team 4932 4934	魔术
+T197	Team 4945 4950	凯尔特人队
+T198	Game 4942 4944	战胜
+E40	Game:T198 Winner:T196 Loser:T197 WinnerScore:T199 LoserScore:T200
+T199	Score 4935 4938	105
+T200	Score 4939 4942	103
+T201	Team 5217 5223	夏洛特黄蜂队
+T202	Team 5237 5244	布鲁克林篮网队
+T203	Game 5235 5237	战胜
+E41	Game:T203 Winner:T201 WinnerScore:T204 LoserScore:T205 Loser:T202
+T204	Score 5226 5229	100
+T205	Score 5230 5232	87
+T206	Team 6002 6004	篮网
+T207	Team 6019 6021	黄蜂
+T208	Game 6017 6019	战胜
+E42	Game:T208 Winner:T206 WinnerScore:T209 LoserScore:T210 Loser:T207
+T209	Score 6010 6013	134
+T210	Score 6014 6017	132
+T211	Team 5607 5609	火箭
+T212	Team 5620 5624	凯尔特人
+T213	Score 5611 5614	127
+T214	Score 5615 5618	113
+T215	Game 5618 5620	战胜
+E43	Game:T215 Winner:T211 WinnerScore:T213 LoserScore:T214 Loser:T212
+T216	Team 5975 5977	快船
+T217	Team 5992 5994	国王
+T218	Game 5990 5992	战胜
+E44	Game:T218 Winner:T216 WinnerScore:T219 LoserScore:T220 Loser:T217
+T219	Score 5983 5986	127
+T220	Score 5987 5990	118
+T221	Team 6951 6953	太阳
+T222	Team 6966 6968	魔术
+T223	Game 6964 6966	战胜
+E45	Game:T223 Winner:T221 Loser:T222 WinnerScore:T224 LoserScore:T225
+T224	Score 6955 6958	122
+T225	Score 6959 6962	120
+T226	Team 7030 7032	活塞
+T227	Team 7041 7043	奇才
+T228	Game 7039 7041	战胜
+E46	Game:T228 Winner:T226 WinnerScore:T229 LoserScore:T230 Loser:T227
+T229	Score 7033 7036	106
+T230	Score 7037 7039	95
+T231	Game 490 492	战胜
+E47	Game:T231 
+T232	N-Score 487 488	4
+T233	N-Score 489 490	1
+T234	Team 482 484	马刺
+T235	Team 492 494	太阳
+T236	Game 620 622	战胜
+E48	Game:T236 
+T237	Team 622 624	活塞
+T238	N-Score 640 644	1221
+T239	N-Team 627 631	波波维奇
+T240	N-Team 648 653	杰里.斯隆
+T241	Game 767 769	战胜
+E49	Game:T241 
+T242	N-Score 778 780	39
+T243	N-Score 808 810	34
+T244	Game 888 890	战胜
+E50	Game:T244 
+T245	N-Team 923 925	湖人
+T246	N-Score 908 910	31
+T247	N-Game 1640 1642	战胜
+E51	N-Game:T247 
+T248	N-Game 2960 2962	战胜
+E52	N-Game:T248 
+T249	N-Game 3000 3002	战胜
+E53	N-Game:T249 
+T250	N-Game 3106 3108	战胜
+E54	N-Game:T250 
+T251	N-Game 3350 3352	战胜
+E55	N-Game:T251 
+T252	N-Game 6167 6169	战胜
+E56	N-Game:T252 
+T253	Game 6813 6815	战胜
+E57	Game:T253 
+T254	N-Team 6865 6869	凯尔特人
+T255	Game 6882 6884	战胜
+E58	Game:T255 
+T256	N-Team 6891 6893	欧文
+T257	N-Score 6900 6902	40
+T258	Game 8272 8274	战胜
+E59	Game:T258 
+T259	N-Score 8269 8270	2
+T260	N-Score 8271 8272	1
+T261	N-Game 8989 8991	战胜
+E60	N-Game:T261 
+T262	Game 9880 9882	战胜
+E61	Game:T262 
+T263	N-Team 9870 9872	他们
