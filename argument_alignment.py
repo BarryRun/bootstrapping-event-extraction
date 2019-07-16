@@ -9,7 +9,7 @@ jieba.load_userdict('userDict.txt')
 
 def alignment_without_parallel(argument_predict_res, alignment_res):
     # 1、获取已有的所有的argument，数据中应该包含文件名（语料库）
-    # 2、根据已有的argument（队名或者分数），来对齐获得其他包含它的句子（词性分析、句法分析等）
+    # 2、根据已有的argument（队名或者分数），在所有语料库中来对齐获得其他包含它的句子（词性分析、句法分析等）
     # 3、返回所有获取到的句子
     data_name, data_list = data_process.read_text_from_corpus('spider/corpus_txt/')
     f = open(alignment_res, 'w')
@@ -104,7 +104,7 @@ def alignment_without_parallel(argument_predict_res, alignment_res):
 
 def alignment_with_parallel(argument_predict_res, alignment_res):
     # 1、获取已有的所有的argument，数据中应该包含文件名（语料库）
-    # 2、根据已有的argument（队名或者分数），来对齐获得其他包含它的句子（词性分析、句法分析等）
+    # 2、根据已有的argument（队名或者分数），在平行语料库中来对齐获得其他包含它的句子（词性分析、句法分析等）
     # 3、返回所有获取到的句子
     data_name, data_list = data_process.read_text_from_corpus('spider/corpus_txt/')
     f = open(alignment_res, 'w')

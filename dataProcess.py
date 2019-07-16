@@ -5,10 +5,10 @@ import jieba
 import gc
 import numpy as np
 from pyhanlp import HanLP
-from keras_bert import load_trained_model_from_checkpoint, Tokenizer
+# from keras_bert import load_trained_model_from_checkpoint, Tokenizer
 import tensorflow as tf
-from bert import tokenization, modeling
-from bert_embedding import BertEmbedding
+# from bert import tokenization, modeling
+# from bert_embedding import BertEmbedding
 import os
 from spider import data_process
 jieba.load_userdict('userDict.txt')

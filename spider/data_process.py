@@ -33,6 +33,8 @@ def read_text_from_corpus(corpus_path):
     data_name = []   # 所有读取的文件名
     for root, dirs, files in os.walk(corpus_path):
         for file in files:
+            if not file.endswith(".txt"):
+                continue
             with open(root + '/' + file) as f:
                 value_name = file.strip('.txt')
                 data_name.append(value_name)
@@ -123,8 +125,15 @@ def labeled_data_process(txt, ann):
 
 
 if __name__ == '__main__':
+    dataname, datalist = read_text_from_corpus("corpus_txt/")
+    for index, name in enumerate(dataname):
+        print(name)
+        for sentence in datalist[index]:
+            if "犯规" in sentence:
+                print(sentence)
+
     # json_to_txt()
     # f_txt, f_ann = labeled_data_process('dataExtracted.txt', 'dataExtracted.ann')
     # for item in f_ann:
     #     print(item)
-    sentence_length_summary()
+    # sentence_length_summary()

@@ -95,7 +95,7 @@ def assign_points(data_points, centers):
 
 def distance_trigger(a, b):
     # 输入均为长度为900的一维向量
-    # 每300维计算一个点乘
+    # 每300维计算一个点乘,返回其中的最小值
     sum1 = sum2 = sum3 = 0
     for dimension in range(900):
         difference_sq = (float(a[dimension]) - float(b[dimension])) ** 2
@@ -284,10 +284,9 @@ def score_sentence_feature(sentence, trigger, trigger_site, embeddings_index):
     return embedding
 
 
-# 针对触发词的聚类特征
-def get_input(filename):
+# 计算各句子的表示,即针对触发词的聚类特征
+def get_input(filename, embeddings_index):
     data_name, data_list = data_process.read_text_from_corpus('spider/corpus_txt/')
-    embeddings_index, embeddings_length = dataProcess.get_chinese_embedding()
     # 通过json的方式读取txt文件中的字典
     with open(filename, 'r') as f:
         json_str = '['
@@ -319,6 +318,7 @@ def get_input(filename):
     return k_means_input, data, sentences
 
 
+# 可视化聚类结果
 def show_result(file_name, k):
     # 通过json的方式读取txt文件中的字典
     with open(file_name, 'r') as f:
@@ -448,9 +448,65 @@ def score_to_cluster(positive_seed_file, cluster_res_file):
     return positive_data, negative_data
 
 
+def cluster_result_evaluation(cluster_res_file, embedding_index):
+    # 读取聚类结果，并按照类别生成列表
+    with open(cluster_res_file, 'r') as f:
+        json_str = '['
+        for line in f.readlines():
+            json_str = json_str + line.strip('\n') + ','
+        json_str = json_str.strip(',') + ']'
+        json_str = json_str.replace("'", '"')
+        cluster_res = json.loads(json_str)
+    cluster_data = defaultdict(list)
+    for one_data in cluster_res:
+        cluster_data[one_data['cluster']].append(one_data)
+
+    for one_cluster in cluster_data:
+        for one_data in one_cluster:
+            ICD = calculate_inter_cluster_dissimilarity(one_data, one_cluster, embedding_index)
+            print(one_data['sentence'], ICD)
+            break
+        break
+
+
+# 计算某一个句子的簇内相似度
+def calculate_inter_cluster_dissimilarity(this_data, inter_cluster, embedding_index):
+    this_data_feature = cluster_sentence_feature(this_data['sentence'], this_data['trigger'], this_data['trigger_site'], embedding_index)
+    sum_distance = 0
+    for one_data in inter_cluster:
+        if one_data == this_data:
+            continue
+        one_data_feature = cluster_sentence_feature(one_data['sentence'], one_data['trigger'], one_data['trigger_site'], embedding_index)
+        one_distance = distance_trigger(this_data_feature, one_data_feature)
+        sum_distance += one_distance
+    return sum_distance/(len(inter_cluster) - 1)
+
+
+# 计算某一个句子的簇外相似度
+def calculate_outer_cluster_dissimilarity(this_data, outer_clusters, embedding_index):
+    this_data_feature = cluster_sentence_feature(this_data['sentence'], this_data['trigger'], this_data['trigger_site'], embedding_index)
+    res = float("inf")
+    for outer_cluster in outer_clusters:
+        sum_distance = 0
+        for one_data in outer_cluster:
+            one_data_feature = cluster_sentence_feature(one_data['sentence'], one_data['trigger'], one_data['trigger_site'], embedding_index)
+            one_distance = distance_trigger(this_data_feature, one_data_feature)
+            sum_distance += one_distance
+        avg_distance = sum_distance/len(outer_cluster)
+        if avg_distance < res:
+            res = avg_distance
+    return res
+
+
+# 计算某一个句子的轮廓系数
+def calculate_silhouette_coefficient(inter, outer):
+    return (outer - inter)/max(inter, outer)
+
+
 def k_means_cluster(alignment_file, cluster_res):
     # 获取聚类数据，第一个为特征，第二个为数据，后者为对应句子
-    k_means_input, input_data, sentences = get_input(alignment_file)
+    embedding_index, embedding_length = dataProcess.get_chinese_embedding()
+    k_means_input, input_data, sentences = get_input(alignment_file, embedding_index)
     class_result = k_means(k_means_input, 4)
     file = open(cluster_res, 'w')
     for index, item in enumerate(class_result):
@@ -463,3 +519,8 @@ def k_means_cluster(alignment_file, cluster_res):
 
     # score_to_cluster("第一轮迭代/cluster_res_only_team.txt")
     # show_result("第一轮迭代/cluster_res_only_team.txt", 4)
+
+
+if __name__ == '__main__':
+    embedding_index, embedding_length = dataProcess.get_chinese_embedding()
+    cluster_result_evaluation("第三轮迭代/cluster_res.txt", embedding_index)
