@@ -448,6 +448,7 @@ def score_to_cluster(positive_seed_file, cluster_res_file):
     return positive_data, negative_data
 
 
+# 对聚类的结果进行评估
 def cluster_result_evaluation(cluster_res_file, embedding_index):
     # 读取聚类结果，并按照类别生成列表
     with open(cluster_res_file, 'r') as f:
@@ -461,10 +462,16 @@ def cluster_result_evaluation(cluster_res_file, embedding_index):
     for one_data in cluster_res:
         cluster_data[one_data['cluster']].append(one_data)
 
+    # 针对每一个句子进行评估
     for one_cluster in cluster_data:
+        other_clusters = []
+        for other_cluster in cluster_data:
+            if other_cluster != one_cluster:
+                other_clusters += other_cluster
         for one_data in one_cluster:
             ICD = calculate_inter_cluster_dissimilarity(one_data, one_cluster, embedding_index)
-            print(one_data['sentence'], ICD)
+            OCD = calculate_outer_cluster_dissimilarity(one_data, other_clusters, embedding_index)
+            print(one_data['sentence'], ICD, OCD)
             break
         break
 
@@ -523,4 +530,5 @@ def k_means_cluster(alignment_file, cluster_res):
 
 if __name__ == '__main__':
     embedding_index, embedding_length = dataProcess.get_chinese_embedding()
+    print("词向量加载完毕！")
     cluster_result_evaluation("第三轮迭代/cluster_res.txt", embedding_index)
