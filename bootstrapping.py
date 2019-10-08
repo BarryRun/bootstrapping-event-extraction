@@ -1,7 +1,7 @@
 
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
-import network
+import network_backup
 import json
 import tensorflow as tf
 from keras.models import load_model
@@ -426,55 +426,55 @@ def argument_train(_positive_cluster_data, _negative_cluster_data, winner_model,
     if which_argument == 'Winner':
         sentence_level, lexical_level, label = \
             dataProcess.argument_data(_positive_cluster_data, _negative_cluster_data, 'Winner')
-        network.argument_train(sentence_level,
-                               lexical_level, label, winner_model)
+        network_backup.argument_train(sentence_level,
+                                      lexical_level, label, winner_model)
     elif which_argument == "Loser":
         sentence_level, lexical_level, label = \
             dataProcess.argument_data(_positive_cluster_data, _negative_cluster_data, 'Loser')
-        network.argument_train(sentence_level,
-                               lexical_level, label, loser_model)
+        network_backup.argument_train(sentence_level,
+                                      lexical_level, label, loser_model)
     elif which_argument == "WinnerScore":
         sentence_level, lexical_level, label = \
             dataProcess.argument_data(_positive_cluster_data, _negative_cluster_data, 'WinnerScore')
-        network.argument_train(sentence_level,
-                               lexical_level, label, winner_score_model)
+        network_backup.argument_train(sentence_level,
+                                      lexical_level, label, winner_score_model)
     elif which_argument == "LoserScore":
         sentence_level, lexical_level, label = \
             dataProcess.argument_data(_positive_cluster_data, _negative_cluster_data, 'LoserScore')
-        network.argument_train(sentence_level,
-                               lexical_level, label, loser_score_model)
+        network_backup.argument_train(sentence_level,
+                                      lexical_level, label, loser_score_model)
     else:
         sentence_level, lexical_level, label = \
             dataProcess.argument_data(_positive_cluster_data, _negative_cluster_data, 'Winner')
-        network.argument_train(sentence_level,
-                               lexical_level, label, winner_model)
+        network_backup.argument_train(sentence_level,
+                                      lexical_level, label, winner_model)
         print("Winner Over")
         sentence_level, lexical_level, label = \
             dataProcess.argument_data(_positive_cluster_data, _negative_cluster_data, 'Loser')
-        network.argument_train(sentence_level,
-                               lexical_level, label, loser_model)
+        network_backup.argument_train(sentence_level,
+                                      lexical_level, label, loser_model)
         print("Loser Over")
         sentence_level, lexical_level, label = \
             dataProcess.argument_data(_positive_cluster_data, _negative_cluster_data, 'WinnerScore')
-        network.argument_train(sentence_level,
-                               lexical_level, label, winner_score_model)
+        network_backup.argument_train(sentence_level,
+                                      lexical_level, label, winner_score_model)
         print("WinnerScore Over")
         sentence_level, lexical_level, label = \
             dataProcess.argument_data(_positive_cluster_data, _negative_cluster_data, 'LoserScore')
-        network.argument_train(sentence_level,
-                               lexical_level, label, loser_score_model)
+        network_backup.argument_train(sentence_level,
+                                      lexical_level, label, loser_score_model)
         print("LoserScore Over")
 
 
 def argument_predict():
-    network.argument_predict('第二轮迭代_非平行/winner_network.h5', '第二轮迭代_非平行/loser_network.h5',
+    network_backup.argument_predict('第二轮迭代_非平行/winner_network.h5', '第二轮迭代_非平行/loser_network.h5',
                              '第二轮迭代_非平行/winner_score_network.h5', '第二轮迭代_非平行/loser_score_network.h5',
                              "第二轮迭代_非平行/trigger_predict_res.txt", "第二轮迭代_非平行/argument_predict_res.txt")
 
 
 def trigger_train(_positive_cluster_data, _negative_cluster_data, network_save_path, res_save_path):
     sentence_level, lexical_level, label = dataProcess.trigger_data(_positive_cluster_data, _negative_cluster_data)
-    network.trigger_train(sentence_level, lexical_level, label, network_save_path, res_save_path)
+    network_backup.trigger_train(sentence_level, lexical_level, label, network_save_path, res_save_path)
 
 
 def train_all_argument():

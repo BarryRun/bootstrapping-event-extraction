@@ -1,17 +1,11 @@
 # -*- coding: UTF-8 -*-
-import time
 import re
-import operator
 import os
+import random
 import csv
 from bert_base.client import BertClient
 from bert_base.bert import tokenization
 from bert_base.train.train_helper import get_args_parser
-args = get_args_parser()
-bert_dir = r'NER_model/chinese_L-12_H-768_A-12'
-tokenizer = tokenization.FullTokenizer(
-    vocab_file=os.path.join(bert_dir, 'vocab.txt'), do_lower_case=args.do_lower_case)
-bc = BertClient(show_server_config=False, check_version=False, check_length=False, mode='NER')
 
 
 # 中文分句
@@ -115,6 +109,11 @@ def error_process(log_path):
 
 # 给定一个句子的集合，返回这些句子的NER的结果，返回结果为json格式
 def get_ner_list(sentences):
+    args = get_args_parser()
+    bert_dir = r'NER_model/chinese_L-12_H-768_A-12'
+    tokenizer = tokenization.FullTokenizer(
+        vocab_file=os.path.join(bert_dir, 'vocab.txt'), do_lower_case=args.do_lower_case)
+    bc = BertClient(show_server_config=False, check_version=False, check_length=False, mode='NER')
     rst = bc.encode(sentences)
     res = NER_Result()
     entities = []
@@ -244,13 +243,15 @@ class Pair(object):
 
 # 抽取并记录所有新闻中的命名实体
 def get_entity_in_every_news(news_path, res_path):
-    f2 = open(res_path, 'w', newline='', encoding='utf-8')
+    f2 = open(res_path, 'a', newline='', encoding='utf-8')
     f2_csv = csv.writer(f2)
-    f2_csv.writerow(['新闻序号', '实体字典'])
+    # f2_csv.writerow(['新闻序号', '实体字典'])
     with open(news_path, 'r', newline='', encoding='utf-8') as f:
         f_csv = csv.reader(f)
         # 对于文件中的所有事件
         for index, item in enumerate(f_csv):
+            if index <= 66513:
+                continue
             content = item[3]
             # 进行分句
             sentences = sentence_split(content)
@@ -297,8 +298,148 @@ def entities_list_combine():
     f2.close()
 
 
+# 计算所有文本之间的聚类评分s
+class ClusterResult(object):
+    def __init__(self, all_law_news_entities_path, all_law_news_content_list, entities_path, res_path):
+        self.all_law_news_entities_path = all_law_news_entities_path
+        self.all_law_news_content_list = all_law_news_content_list
+        self.entities_path = entities_path
+        self.res_path = res_path
+        self.all_entities_dic = {}
+        self.every_entities_dict = {}
+        self.news_list = []
+
+    def loading_data(self):
+        # 加载整体的命名实体字典
+        with open(self.all_law_news_entities_path, 'r', newline='', encoding='utf-8') as f:
+            f_csv = csv.reader(f)
+            for index, item in enumerate(f_csv):
+                if index > 0:
+                    self.all_entities_dic[item[0]] = int(item[1])
+
+        # 加载每个新闻的命名实体列表
+        with open(self.entities_path, 'r', newline='', encoding='utf-8') as f:
+            f_csv = csv.reader(f)
+            for index, item in enumerate(f_csv):
+                if index > 0:
+                    self.every_entities_dict[int(item[0])] = eval(item[1])
+
+        # 加载所有新闻（主要是为了统计同一天的新闻）
+        with open(self.all_law_news_content_list, 'r', newline='', encoding='utf-8') as f:
+            f_csv = csv.reader(f)
+            for item in f_csv:
+                self.news_list.append([item[0], item[1], item[2], item[3]])
+
+    def calculate_score(self):
+        self.loading_data()
+        with open(self.res_path, 'w', newline='', encoding='utf-8') as f:
+            f_csv = csv.writer(f)
+            for index1 in range(len(self.news_list)):
+                if index1 not in self.every_entities_dict:
+                    continue
+                # date = self.news_list[index1][2]
+                for index2 in range(index1+1, len(self.news_list)):
+                    # if date == self.news_list[index2][2] and index2 in self.every_entities_dict:
+                    # 不做日期的限制
+                    if index2 in self.every_entities_dict:
+                        s = self.calculate_score_between_news(index1, index2)
+                        if s != 0:
+                            f_csv.writerow([index1, index2, s])
+                print(index1, "over")
+
+    # 计算两个文档之间的聚类评分
+    def calculate_score_between_news(self, index1, index2):
+        entities1 = self.every_entities_dict[index1]
+        entities2 = self.every_entities_dict[index2]
+        same_entities_dic = []
+        cross_time = 0
+        for key1 in entities1:
+            for key2 in entities2:
+                if key1 == key2:
+                    cross_time += entities2[key2] + entities1[key1]
+                    same_entities_dic.append(key1)
+        if cross_time == 0:
+            return 0
+        all_time = 0
+        for entity in same_entities_dic:
+            all_time += self.all_entities_dic[entity]
+
+        return cross_time/all_time
+
+
+# 为所有文档分类
+def document_cluster(score_path, document_cluster_path):
+    clusters = []
+    with open(score_path, 'r', newline='', encoding='utf-8') as f:
+        f_csv = csv.reader(f)
+        for item in f_csv:
+            # 界定一个阈值
+            if float(item[2]) > 0.5:
+                existing = False
+                for cluster in clusters:
+                    if item[0] in cluster:
+                        if item[1] not in cluster:
+                            cluster.append(item[1])
+                        existing = True
+                        break
+                    else:
+                        if item[1] in cluster:
+                            cluster.append(item[0])
+                            existing = True
+                            break
+                if not existing:
+                    clusters.append([item[0], item[1]])
+
+    with open(document_cluster_path, 'w', encoding='utf-8') as f:
+        for item in clusters:
+            f.write(str(item) + '\n')
+
+
+# 对事件对齐的结果进行一定的分析
+def result_analysis():
+    news_list = []
+    # 加载所有新闻（主要是为了统计同一天的新闻）
+    with open('LawNews/all_law_news_content_list.csv', 'r', newline='', encoding='utf-8') as f:
+        f_csv = csv.reader(f)
+        for item in f_csv:
+            news_list.append([item[0], item[1], item[2], item[3]])
+
+    every_entities_dict = {}
+    # 加载每个新闻的命名实体列表
+    with open('LawNews/every_news_entities_list.csv', 'r', newline='', encoding='utf-8') as f:
+        f_csv = csv.reader(f)
+        for index, item in enumerate(f_csv):
+            if index > 0:
+                every_entities_dict[int(item[0])] = eval(item[1])
+
+    random_numbers = []
+    for i in range(20):
+        random_numbers.append(random.randint(0, 97))
+    with open('LawNews/news_cluster_res_threshold_0.1.txt') as f:
+        for index, line in enumerate(f.readlines()):
+            if index not in random_numbers:
+                continue
+            print('========Cluster' + str(index) + '========')
+            print(line.strip())
+            tmp = line[1:-2].split(', ')
+            # if len(tmp) > 10:
+            #     continue
+
+            for item in tmp:
+                news_index = int(item[1:-1])
+                print(news_index, news_list[news_index][0], news_list[news_index][2], every_entities_dict[news_index])
+                print(news_list[news_index][3])
+
 
 if __name__ == '__main__':
     # error_process('LawNews/NER_log.txt')
-    get_entity_in_every_news('LawNews/all_law_news_content_list.csv', 'LawNews/every_news_entities_list.csv')
+    # get_entity_in_every_news('LawNews/all_law_news_content_list.csv', 'LawNews/every_news_entities_list.csv')
     # entities_list_combine()
+    # res_class = ClusterResult('LawNews/all_law_news_entities_list.csv',
+    #                           'LawNews/all_law_news_content_list.csv',
+    #                           'LawNews/every_news_entities_list.csv',
+    #                           'LawNews/cluster_score_res_without_date_limit.csv')
+    # res_class.calculate_score()
+    # document_cluster('LawNews/cluster_score_res_with_date_limit.csv',
+    #                  'LawNews/news_cluster_res_threshold_0.5.txt')
+    result_analysis()
